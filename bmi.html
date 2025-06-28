@@ -1,0 +1,130 @@
+<html>
+<head>
+  <title>BMI Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 style="text-align:center; font-size:28px; margin-top:20px;">BMI Calculator</h1>
+  <div class="container">
+    <div class="left">
+      <h2>Body Mass<br>Index Calculator</h2>
+      <p>Better understand your weight in relation to your height using our body mass index (BMI) calculator. While BMI is not the sole determinant of a healthy weight, it offers a valuable starting point to evaluate your overall health and well-being.</p>
+    </div>
+    <div class="right">
+      <h3>Enter your details below</h3>
+      <div>
+       <label><input type="radio" name="unit" value="metric" checked onchange="units()"> Metric</label>
+       <label><input type="radio" name="unit" value="imperial" onchange="units()"> Imperial</label>
+      </div>
+      <div>
+        <input type="number" id="height" placeholder="0" />
+        <span id="heightUnit">cm</span>
+      </div>
+      <div>
+        <input type="number" id="weight" placeholder="0" />
+        <span  id="weightUnit">kg</span>
+      </div>
+      <button class="button" onclick="calculateBMI()">Calculate BMI</button>
+      <div id="result"></div>
+    </div>
+  </div>
+  <section class="bmi-meaning">
+    <img src="https://lirp.cdn-website.com/69c0b277/dms3rep/multi/opt/BMI+levels-640w.jpg" width="300">
+    <div class="description">
+      <h3>What your BMI result means</h3>
+      <p>A BMI range of 18.5 to 24.9 is considered a “healthy weight.” Maintaining a healthy weight may lower your chances of experiencing health issues later on, such as obesity and type 2 diabetes. Aim for a nutritious diet with reduced sugar and saturated fat, and ensure you get regular physical activity, ideally about 30 minutes daily for five days a week.</p>
+    </div>
+  </section> 
+  <section class="tips">
+    <div class="tip">
+      <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=80" alt="Healthy eating">
+      <h4>Healthy eating</h4>
+      <p>Eat a diet with vegetables, fruits, lean proteins, whole grains. Avoid processed food and excess sugars.</p>
+    </div>
+    <div class="tip">
+      <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=80" alt="Exercise">
+      <h4>Regular exercise</h4>
+      <p>Physical activity helps control weight, reduce health risks, and strengthen your body.</p>
+    </div>
+    <div class="tip">
+      <img src="https://images.pexels.com/photos/935777/pexels-photo-935777.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=80" alt="Sleep">
+      <h4>Adequate sleep</h4>
+      <p>Get 7-9 hours of quality sleep each night to boost mental and physical health.</p>
+    </div>
+  </section> 
+  <section class="limitations">
+    <h2 style="text-align: center;">Limitations of BMI</h2>
+    <p>Although BMI is a useful indicator of healthy weight, it doesn't consider muscle, age, gender, or body type.</p>
+    <div class="cards">
+    <div class="card">
+        <img src="https://i0.wp.com/acme-ug.org/wp-content/uploads/gender-312411_1280.png?fit=1280%2C1023&ssl=1" alt="Gender Icon">
+        <h4>Gender</h4>
+       <p>Men and women store fat differently. Women naturally carry more body fat than men.</p>
+       </div>
+
+      <div class="card">
+         <img src="https://media.sciencephoto.com/image/p9800258/800wm">
+        <h4>Age</h4>       
+        <p>Aging causes changes in body composition — muscle mass decreases, fat often increases.</p>
+      </div>
+      <div class="card">
+        <img src="https://manofmany.com/wp-content/uploads/2024/03/John-Cena.jpg" alt="Muscle">
+        <h4>Muscle</h4>        
+        <p>Muscular individuals may appear overweight by BMI, despite being fit and healthy.</p>
+      </div>
+    </div>
+  </section>
+  <script>
+    const heightInput = document.getElementById('height');
+    const weightInput = document.getElementById('weight');
+    const resultBox = document.getElementById('result');
+    const unitRadios = document.getElementsByName('unit');
+    const heightUnit = document.getElementById('heightUnit');
+    const weightUnit = document.getElementById('weightUnit');   
+    function calculateBMI() {
+      let height = parseFloat(heightInput.value);
+      let weight = parseFloat(weightInput.value);
+      let unit;
+      for (let i = 0; i < unitRadios.length; i++) {
+        if (unitRadios[i].checked) {
+          unit = unitRadios[i].value;
+          break;
+        }
+      }
+      let bmi;
+      if (unit === 'metric') {
+        height = height / 100;
+        bmi = weight / (height * height);
+      } 
+      if(unit=="imperial")
+       {
+        bmi = (weight / (height * height)) * 703;
+      }
+
+      let category = '';
+      if (bmi < 18.5) category = 'Underweight';
+      else if (bmi < 24.9) category = 'Healthy weight';
+      else if (bmi < 29.9) category = 'Overweight';
+      else category = 'Obese';
+      resultBox.innerHTML = "Your BMI is " + bmi + "<br>Category:" + category;
+    }
+    function units() {
+     let unit;
+     for (let i = 0; i < unitRadios.length; i++) {
+    if (unitRadios[i].checked) {
+      unit = unitRadios[i].value;
+      break;
+    }
+  }
+  if (unit === 'metric') {
+    heightUnit.textContent = 'cm';
+    weightUnit.textContent = 'kg';
+  }
+   else if(unit=="imperial") {
+    heightUnit.textContent = 'in';
+    weightUnit.textContent = 'lbs';
+  }
+}
+  </script>
+</body>
+</html>
